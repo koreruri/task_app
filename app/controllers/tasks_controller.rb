@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  
   def index
     @tasks = Task.all.order(start_date: :asc)
     @class = params[:class]
@@ -20,15 +22,14 @@ class TasksController < ApplicationController
   end
   
   def show
-    @task = Task.find(params[:id])
+    #before_actionで実装
   end
   
   def edit
-    @task = Task.find(params[:id])
+    #before_actionで実装
   end
   
   def update
-    @task = Task.find(params[:id])
     if @task.update(params.require(:task).permit(:title, :start_date, :end_date, :all_day, :memo))
       flash[:success] = "スケジュールを更新しました"
       redirect_to :tasks
@@ -39,9 +40,15 @@ class TasksController < ApplicationController
   end
   
   def destroy
-    @task = Task.find(params[:id])
     @task.destroy
     flash[:delete] = "スケジュールを削除しました"
     redirect_to :tasks
   end
+  
+  private
+  
+    def set_user
+      @user = User.find(params[:user_id])
+    end
+    
 end
