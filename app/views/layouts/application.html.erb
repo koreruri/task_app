@@ -11,6 +11,22 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <h1>Ruby on Rails スケジュール管理アプリ</h1>
+    </header>
+    <div class="main-container">
+      <h2><%= yield(:heading) %></h2>
+
+      <% flash.each do |message_type, message| %>
+        <%= content_tag(:p, message, class: "alert alert__#{message_type}") %>
+      <% end %>
+      
+      <%= yield %>
+    </div>
+    <footer>
+      <h1>
+        現在の日時 : <%= Time.now.to_s(:date_jp) %>　 <%= yield(:task_count) %>
+      </h1>
+    </footer>
   </body>
 </html>
