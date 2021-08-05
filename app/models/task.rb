@@ -12,7 +12,7 @@ class Task < ApplicationRecord
   end
   
   def correct_date_order
-      errors.add(:end_date, 'は開始日以降の日付で選択してください') if end_date.nil? ||　end_date < start_date
+      errors.add(:end_date, 'は開始日以降の日付で選択してください') if end_date < start_date
   end
   
 end
